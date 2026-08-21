@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Personal Introduction</title>
+  <style>
+    :root {
+      --ink: #182a3a;
+      --muted: #667482;
+      --paper: #eef1f4;
+      --panel: #ffffff;
+      --line: #d6dde4;
+      --navy: #173c5b;
+      --gold: #b38a3c;
+      --soft-blue: #dce8f0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      background-color: var(--paper);
+      background-image: linear-gradient(135deg, rgba(255,255,255,.7), transparent 55%);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+    }
+
+    .shell {
+      width: min(1080px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 42px 0 56px;
+    }
+
+    .topbar, .eyebrow, .form-heading, .tag, .stat-label {
+      font-family: "Courier New", monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--navy);
+    }
+
+    .mark { display: flex; align-items: center; gap: 10px; font-weight: bold; }
+    .mark-dot { width: 12px; height: 12px; background: var(--gold); border-radius: 50%; }
+    .date { color: var(--muted); }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 0.85fr;
+      gap: clamp(36px, 7vw, 90px);
+      align-items: end;
+      padding: 72px 0 50px;
+    }
+
+    .eyebrow { margin: 0 0 18px; color: var(--gold); font-size: 13px; font-weight: bold; }
+    h1 {
+      max-width: 650px;
+      margin: 0;
+      font-family: Georgia, serif;
+      font-size: clamp(48px, 8vw, 92px);
+      font-weight: normal;
+      line-height: 0.92;
+      letter-spacing: 0;
+    }
+
+    .lede { max-width: 330px; margin: 0 0 8px; color: var(--muted); font-size: 18px; line-height: 1.5; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.8fr) minmax(320px, 1.2fr);
+      gap: 18px;
+    }
+
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; }
+    .form-panel { padding: clamp(24px, 4vw, 42px); }
+    .form-heading { margin: 0 0 30px; color: var(--navy); font-size: 12px; }
+    .field { display: block; margin-bottom: 20px; }
+    .field span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 13px; }
+    input {
+      width: 100%;
+      padding: 12px 0;
+      border: 0;
+      border-bottom: 1px solid var(--line);
+      outline: 0;
+      color: var(--ink);
+      background: transparent;
+      font: 17px Georgia, serif;
+    }
+    input:focus { border-color: var(--navy); }
+    .actions { display: flex; gap: 12px; margin-top: 30px; }
+    button { padding: 12px 18px; border: 1px solid var(--navy); border-radius: 3px; cursor: pointer; font: bold 12px "Courier New", monospace; text-transform: uppercase; letter-spacing: 0.05em; }
+    .primary { color: #fff; background: var(--navy); }
+    .secondary { color: var(--navy); background: transparent; }
+    button:hover { transform: translateY(-1px); }
+
+    .profile-panel { position: relative; overflow: hidden; padding: clamp(26px, 5vw, 56px); background: var(--navy); color: #fff; }
+    .profile-panel::after { content: ""; position: absolute; right: -55px; top: -55px; width: 170px; height: 170px; border: 35px solid var(--gold); border-radius: 50%; opacity: 0.9; }
+    .profile-top { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; }
+    .avatar { display: grid; width: 74px; height: 74px; place-items: center; border-radius: 50%; background: var(--soft-blue); color: var(--navy); font: 25px Georgia, serif; }
+    .tag { padding: 7px 9px; border: 1px solid rgba(255,255,255,.4); font-size: 10px; }
+    .profile-content { position: relative; z-index: 1; margin-top: 72px; }
+    .profile-content h2 { margin: 0 0 8px; font: normal clamp(34px, 5vw, 60px)/1 Georgia, serif; }
+    .profile-content .location { margin: 0; color: #c7d6e1; font-size: 15px; }
+    .rule { margin: 34px 0 24px; border: 0; border-top: 1px solid rgba(255,255,255,.25); }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .stat-label { display: block; margin-bottom: 8px; color: #c7d6e1; font-size: 10px; }
+    .stat-value { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font: 18px Georgia, serif; }
+    .saved { margin: 30px 0 0; color: #c7d6e1; font: 12px "Courier New", monospace; }
+
+    @media (max-width: 720px) {
+      .shell { width: min(100% - 28px, 560px); padding-top: 24px; }
+      .date { display: none; }
+      .intro { grid-template-columns: 1fr; gap: 24px; padding: 52px 0 34px; }
+      .lede { margin: 0; }
+      .workspace { grid-template-columns: 1fr; }
+      .profile-panel { order: -1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="mark"><span class="mark-dot"></span> Personal Introduction / 01</div>
+      <div class="date">Official profile form</div>
+    </header>
+
+    <section class="intro">
+      <div>
+        <p class="eyebrow">Personal Information</p>
+        <h1>Personal Introduction</h1>
+      </div>
+      <p class="lede">Please provide the following information for your personal profile.</p>
+    </section>
+
+    <section class="workspace" aria-label="Personal introduction form">
+      <form class="panel form-panel" id="intro-form">
+        <h2 class="form-heading">Applicant Details</h2>
+        <label class="field"><span>Full Name</span><input id="name" name="name" placeholder="Enter your full name" autocomplete="name" required></label>
+        <label class="field"><span>Age</span><input id="age" name="age" placeholder="Enter your age" inputmode="numeric" required></label>
+        <label class="field"><span>City</span><input id="city" name="city" placeholder="Enter your city" autocomplete="address-level2" required></label>
+        <label class="field"><span>Hobby</span><input id="hobby" name="hobby" placeholder="Enter your hobby" required></label>
+        <label class="field"><span>Language</span><input id="language" name="language" placeholder="Enter your language" autocomplete="language" required></label>
+        <div class="actions"><button class="primary" type="submit">Submit Information</button><button class="secondary" type="reset">Reset Form</button></div>
+      </form>
+
+      <article class="panel profile-panel" aria-live="polite">
+        <div class="profile-top"><div class="avatar" id="avatar">YN</div><span class="tag">Profile Summary</span></div>
+        <div class="profile-content">
+          <h2 id="preview-name">Your name</h2>
+          <p class="location" id="preview-city">City will appear here</p>
+          <hr class="rule">
+          <div class="stats">
+            <div><span class="stat-label">Age</span><span class="stat-value" id="preview-age">--</span></div>
+            <div><span class="stat-label">Hobby</span><span class="stat-value" id="preview-hobby">--</span></div>
+            <div><span class="stat-label">Language</span><span class="stat-value" id="preview-language">--</span></div>
+          </div>
+          <p class="saved" id="saved-state">Awaiting submitted information.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    const fields = ["name", "age", "city", "hobby", "language"];
+    const form = document.querySelector("#intro-form");
+    const value = (id) => document.querySelector(`#${id}`).value.trim();
+
+    function updatePreview() {
+      const name = value("name") || "Your name";
+      document.querySelector("#preview-name").textContent = name;
+      document.querySelector("#preview-city").textContent = value("city") || "City will appear here";
+      document.querySelector("#preview-age").textContent = value("age") || "--";
+      document.querySelector("#preview-hobby").textContent = value("hobby") || "--";
+      document.querySelector("#preview-language").textContent = value("language") || "--";
+      document.querySelector("#avatar").textContent = name === "Your name" ? "YN" : name.slice(0, 2).toUpperCase();
+    }
+
+    fields.forEach((id) => document.querySelector(`#${id}`).addEventListener("input", updatePreview));
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      updatePreview();
+      document.querySelector("#saved-state").textContent = "Information submitted successfully.";
+    });
+    form.addEventListener("reset", () => setTimeout(() => {
+      updatePreview();
+      document.querySelector("#saved-state").textContent = "Awaiting submitted information.";
+    }));
+  </script>
+</body>
+</html>
