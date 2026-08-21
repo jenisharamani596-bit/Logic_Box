@@ -2,17 +2,17 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 
 
-class UnitConversionApp:
+class ConversionApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Unit Conversion")
         self.root.geometry("760x560")
         self.root.minsize(650, 500)
         self.root.configure(bg="#edf1f5")
-        self.create_styles()
-        self.create_ui()
+        self.setup_styles()
+        self.build_ui()
 
-    def create_styles(self):
+    def setup_styles(self):
         style = ttk.Style()
         style.theme_use("clam")
         style.configure("Page.TFrame", background="#edf1f5")
@@ -27,7 +27,7 @@ class UnitConversionApp:
         style.configure("Primary.TButton", background="#173c5b", foreground="#ffffff", padding=(20, 11), font=("Segoe UI", 10, "bold"))
         style.configure("Secondary.TButton", background="#ffffff", foreground="#173c5b", padding=(20, 11), font=("Segoe UI", 10))
 
-    def create_ui(self):
+    def build_ui(self):
         page = ttk.Frame(self.root, style="Page.TFrame", padding=32)
         page.pack(fill="both", expand=True)
 
@@ -89,17 +89,18 @@ class UnitConversionApp:
 
         conversion = self.conversion.get()
         if conversion == "Celsius to Fahrenheit":
-            result = (source_value * 9 / 5) + 32
+            result = source_value * 9 / 5 + 32
             source_unit, target_unit = "°C", "°F"
         elif conversion == "Kilometers to Miles":
             result = source_value * 0.621371
             source_unit, target_unit = "Km", "Miles"
         else:
-            result = source_value / 83
-            source_unit, target_unit = "INR", "USD"
+            result = source_value / 83.0
+            source_unit, target_unit = "₹", "$"
 
-        self.result_value.configure(text=f"{result:.4f}".rstrip("0").rstrip("."))
-        self.expression.configure(text=f"{source_value:g} {source_unit} = {result:.4f} {target_unit}")
+        formatted_result = f"{result:.4f}".rstrip("0").rstrip(".")
+        self.result_value.configure(text=formatted_result)
+        self.expression.configure(text=f"{source_value:g} {source_unit} = {formatted_result} {target_unit}")
         self.result_type.configure(text=type(result).__name__.title())
 
     def clear(self):
@@ -113,5 +114,5 @@ class UnitConversionApp:
 
 if __name__ == "__main__":
     app_window = tk.Tk()
-    UnitConversionApp(app_window)
+    ConversionApp(app_window)
     app_window.mainloop()
