@@ -72,8 +72,11 @@ class PersonalIntroduction:
 
 		actions = ttk.Frame(form, style="Card.TFrame")
 		actions.pack(fill="x", pady=(8, 0))
-		ttk.Button(actions, text="Submit Information", style="Primary.TButton", command=self.submit).pack(side="left")
-		ttk.Button(actions, text="Reset Form", style="Secondary.TButton", command=self.reset).pack(side="left", padx=(10, 0))
+		self.submit_button = ttk.Button(actions, text="Submit Information", style="Primary.TButton", command=self.submit)
+		self.submit_button.pack(side="left")
+		self.reset_button = ttk.Button(actions, text="Reset Form", style="Secondary.TButton", command=self.reset)
+		self.reset_button.pack(side="left", padx=(10, 0))
+		self.root.bind("<Return>", lambda event: self.submit())
 
 		summary = ttk.Frame(body, style="Summary.TFrame", padding=36)
 		summary.grid(row=0, column=1, sticky="nsew", padx=(8, 0))
@@ -120,6 +123,7 @@ class PersonalIntroduction:
 			return
 		self.update_summary()
 		self.status.configure(text="Information submitted successfully.")
+		self.submit_button.focus_set()
 		messagebox.showinfo("Submission Complete", "Your personal introduction has been submitted.")
 
 	def reset(self):
@@ -129,6 +133,7 @@ class PersonalIntroduction:
 			entry.configure(foreground="#8995a1")
 		self.update_summary()
 		self.status.configure(text="Awaiting submitted information.")
+		self.submit_button.focus_set()
 
 
 if __name__ == "__main__":
